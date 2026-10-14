@@ -30,12 +30,16 @@
       <img class="logo-full" src="/img/logo-white.png" alt="PIJ Property">
       <img class="logo-mini" src="/img/logo-icon.png" alt="PIJ Property">
     </a>
+    <button class="burger" type="button" aria-label="Menu" aria-controls="side-nav" aria-expanded="false"
+      onclick="var o=document.documentElement.classList.toggle('admin-nav-open');this.setAttribute('aria-expanded',o)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="b-open" d="M4 7h16M4 12h16M4 17h16"/><path class="b-close" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
     <button class="collapse" type="button" aria-label="Lipat sidebar" aria-controls="side" title="Lipat / kembang"
       onclick="var c=document.documentElement.classList.toggle('side-collapsed');try{localStorage.setItem('pij.side',c?'1':'0')}catch(e){}">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
     </button>
   </div>
-  <nav>
+  <nav id="side-nav">
     <a href="/admin" title="Dashboard"><%- svg('dashboard') %><span>Dashboard</span></a>
     <% Object.keys(resources).forEach(function(k){ %>
       <a href="/admin/<%= k %>" title="<%= resources[k].label %>"><%- svg(k) %><span><%= resources[k].label %></span></a>

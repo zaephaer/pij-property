@@ -107,3 +107,28 @@ th{background:var(--n);font-size:.8rem;text-transform:uppercase;letter-spacing:.
 .chk .done .mark{background:var(--p)}.chk .todo .mark{background:#e9b100;color:#1a2421}
 .chk small{display:block;color:#5b6b66;font-weight:400}
 @media(max-width:900px){.dgrid{grid-template-columns:1fr}}
+
+/* mobile: top bar + hamburger (overrides the older stacked layout above) */
+.burger{display:none;width:44px;height:44px;border:0;border-radius:10px;background:#14503f;color:#fff;cursor:pointer;place-items:center;padding:0}
+.burger svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.burger .b-close{display:none}
+@media(max-width:800px){
+  .side{position:sticky;top:0;z-index:30;width:auto;flex-direction:column;gap:0;padding:8px 14px;max-height:100vh;overflow-y:auto}
+  .side-top{display:flex;align-items:center;justify-content:space-between}
+  .brand{max-width:none}
+  .brand .logo-full{display:block!important;width:112px}
+  .brand .logo-mini{display:none!important}
+  .collapse{display:none}
+  .burger{display:grid}
+  .side nav,.side form{display:none}
+  html.admin-nav-open .side nav{display:flex;flex-direction:column;flex-wrap:nowrap;gap:2px;padding:10px 0 4px;border-top:1px solid #1d4a3c;margin-top:8px}
+  html.admin-nav-open .side form{display:block;padding-bottom:6px}
+  html.admin-nav-open .burger .b-open{display:none}
+  html.admin-nav-open .burger .b-close{display:inline}
+  html.side-collapsed .side nav a span,html.side-collapsed .side .out span{display:inline}
+  html.side-collapsed .side nav a,html.side-collapsed .side .out{justify-content:flex-start}
+  .side nav a,.side .out{padding:12px 10px}
+  main.with-side{margin-left:0;padding:16px}
+  .bar{flex-wrap:wrap}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
