@@ -1,0 +1,14 @@
+<%- include('partials/head', {pageTitle: pick(t,'title')}) %>
+<section class="page-h"><div class="wrap"><p class="crumb"><a href="<%= base %>/tender"><%= S.nav_tenders %></a></p>
+  <h1><%= pick(t,'title') %></h1>
+  <span class="tag <%= t.closed ? 't-cadangan' : 't-siap' %>"><%= t.closed ? S.tender_closed : S.tender_open %></span></div></section>
+<section class="sec"><div class="wrap prose">
+  <dl class="facts">
+    <dt><%= S.tender_ref %></dt><dd><%= t.ref %></dd>
+    <dt><%= S.tender_close %></dt><dd><%= date(t.closing_date) %></dd>
+  </dl>
+  <div class="pre"><%= pick(t,'body') %></div>
+  <% if (t.file) { %><p><a class="btn" href="<%= t.file %>" target="_blank" rel="noopener"><%= S.attachment %> (PDF)</a></p><% } %>
+  <% if (pick(t,'result')) { %><h2><%= S.tender_result %></h2><div class="pre"><%= pick(t,'result') %></div><% } %>
+</div></section>
+<%- include('partials/foot') %>

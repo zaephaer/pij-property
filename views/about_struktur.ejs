@@ -1,0 +1,33 @@
+<%- include('partials/head', {pageTitle: pg.title[lang]}) %>
+<% var t = function(ms, en){ return lang === 'ms' ? ms : en; };
+   var subs = [
+     { n: 'PIJ Property Development', img: 'pij-property', pct: '100%', me: true },
+     { n: 'PIJ Plantation', img: 'pij-plantation', pct: '100%' },
+     { n: 'Koridor Utiliti Johor', img: 'koridor-utiliti-johor', pct: '100%' },
+     { n: 'PIJ Halal Ventures', img: 'pij-halal-ventures', pct: '100%' },
+     { n: 'PIJ Manufacturing', img: 'pij-manufacturing', pct: '100%' },
+     { n: 'Karisma Astaka', img: 'karisma-astaka', pct: '100%' },
+     { n: 'Perisind Samudra', img: 'perisind-samudra', pct: '' }
+   ]; %>
+<section class="page-h"><div class="wrap"><h1><%= pg.title[lang] %></h1><p class="lead"><%= pg.lead[lang] %></p></div></section>
+<section class="sec"><div class="wrap">
+  <div class="tree">
+    <div class="tree-lvl"><div class="node n-top"><img src="/img/g/kerajaan-johor.png" alt="<%= t('Kerajaan Negeri Johor', 'Johor State Government') %>"></div></div>
+    <div class="tree-line"></div>
+    <div class="tree-lvl"><div class="node"><img src="/img/g/pij.png" alt="Perbadanan Islam Johor"><span>Perbadanan Islam Johor</span></div></div>
+    <div class="tree-line"></div>
+    <div class="tree-lvl"><div class="node n-hold"><img src="/img/g/pij-holdings.png" alt="PIJ Holdings Sdn Bhd"><small><%= t('Dahulu Perisind Holdings Sdn Bhd', 'Formerly Perisind Holdings Sdn Bhd') %></small></div></div>
+    <div class="tree-line"></div>
+    <div class="tree-bar"></div>
+    <div class="tree-subs">
+      <% subs.forEach(function(s){ %>
+        <div class="node sub <%= s.me ? 'me' : '' %>">
+          <% if (s.pct) { %><b class="pct"><%= s.pct %></b><% } %>
+          <img src="<%= s.me ? '/img/logo-white.png' : '/img/g/' + s.img + '.png' %>" alt="<%= s.n %>">
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  <div class="vm-band"><%= t('PIJ Holdings ialah cabang perniagaan Perbadanan Islam Johor, memajukan sosioekonomi ummah melalui tanah, pertanian, perumahan, perusahaan, perlombongan dan perdagangan.', 'PIJ Holdings is the business arm of Perbadanan Islam Johor, advancing the socio-economy of the ummah through land, agriculture, housing, enterprise, mining and trade.') %></div>
+</div></section>
+<%- include('partials/foot') %>

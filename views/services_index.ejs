@@ -1,0 +1,14 @@
+<%- include('partials/head', {pageTitle: S.nav_services}) %>
+<section class="page-h"><div class="wrap"><h1><%= S.nav_services %></h1>
+  <p class="lead"><%= lang === 'ms' ? 'Daripada pembangunan perumahan mampu milik hingga penyelenggaraan masjid, sekolah dan harta wakaf.' : 'From affordable housing development to the maintenance of mosques, schools and waqf property.' %></p></div></section>
+<section class="sec"><div class="wrap">
+  <div class="cards">
+    <% items.forEach(function(x){ %>
+      <a class="card" href="<%= base %>/perkhidmatan/<%= x.slug %>">
+        <img src="/img/s/<%= x.image %>" alt="" loading="lazy">
+        <div class="card-b"><h3><%= x.title %></h3><p class="muted"><%= x.lead %></p></div>
+      </a>
+    <% }) %>
+  </div>
+</div></section>
+<%- include('partials/foot') %>

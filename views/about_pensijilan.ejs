@@ -1,0 +1,10 @@
+<%- include('partials/head', {pageTitle: pg.title[lang]}) %>
+<section class="page-h"><div class="wrap"><h1><%= pg.title[lang] %></h1><p class="lead"><%= pg.lead[lang] %></p></div></section>
+<section class="sec"><div class="wrap">
+  <% if (!certs.length) { %><p class="muted"><%= S.none %></p><% } %>
+  <% certs.forEach(function(c){ %><%- include('partials/cert', {c: c}) %><% }) %>
+  <% if (certs.some(function(c){ return c.category === 'abms'; })) { %>
+    <p><a class="btn btn-line" href="<%= base %>/kenali-kami/integriti"><%= INTEGRITY.title[lang] %></a></p>
+  <% } %>
+</div></section>
+<%- include('partials/foot') %>

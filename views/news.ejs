@@ -1,0 +1,14 @@
+<%- include('partials/head', {pageTitle: S.nav_news}) %>
+<section class="page-h"><div class="wrap"><h1><%= S.nav_news %></h1></div></section>
+<section class="sec"><div class="wrap">
+  <% if (!items.length) { %><p class="muted"><%= S.none %></p><% } %>
+  <div class="cards">
+    <% items.forEach(function(n){ %>
+      <a class="card" href="<%= base %>/berita/<%= n.id %>">
+        <% if (n.image) { %><img src="<%= n.image %>" alt="" loading="lazy"><% } %>
+        <div class="card-b"><p class="muted"><%= date(n.published_at) %></p><h3><%= pick(n,'title') %></h3></div>
+      </a>
+    <% }) %>
+  </div>
+</div></section>
+<%- include('partials/foot') %>

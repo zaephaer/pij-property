@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="<%= lang %>">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= typeof pageTitle !== 'undefined' && pageTitle ? pageTitle + ' | ' : '' %>PIJ Property Development</title>
+<meta name="description" content="<%= S.hero_sub %>">
+<link rel="icon" href="/img/logo.png">
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="<%= base %>"><img src="/img/logo.png" alt="PIJ Property"></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false" onclick="document.body.classList.toggle('nav-open');this.setAttribute('aria-expanded',document.body.classList.contains('nav-open'))">&#9776;</button>
+    <nav class="nav" aria-label="Main">
+      <a href="<%= base %>/projek"><%= S.nav_projects %></a>
+      <div class="dd"><a href="<%= base %>/perkhidmatan"><%= S.nav_services %></a>
+        <div class="dd-m"><% nav.services.forEach(function(x){ %><a href="<%= base %>/perkhidmatan/<%= x.slug %>"><%= x.title %></a><% }) %></div></div>
+      <div class="dd"><a href="<%= base %>/kenali-kami/profil"><%= S.nav_about %></a>
+        <div class="dd-m"><% nav.about.forEach(function(x){ %><a href="<%= base %>/kenali-kami/<%= x.slug %>"><%= x.title %></a><% }) %></div></div>
+      <% if (menu.news) { %><a href="<%= base %>/berita"><%= S.nav_news %></a><% } %>
+      <% if (menu.tenders) { %><a href="<%= base %>/tender"><%= S.nav_tenders %></a><% } %>
+      <% if (menu.careers) { %><a href="<%= base %>/kerjaya"><%= S.nav_careers %></a><% } %>
+      <% if (menu.downloads) { %><a href="<%= base %>/muat-turun"><%= S.nav_downloads %></a><% } %>
+      <a class="btn btn-sm" href="<%= base %>/hubungi"><%= S.nav_contact %></a>
+      <a class="lang" href="/<%= S.otherLang %><%= path === '/' ? '' : path %>" hreflang="<%= S.otherLang %>"><%= S.otherLang.toUpperCase() %></a>
+    </nav>
+  </div>
+</header>
+<main>

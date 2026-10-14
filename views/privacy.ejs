@@ -1,0 +1,11 @@
+<%- include('partials/head', {pageTitle: P.title[lang]}) %>
+<section class="page-h"><div class="wrap"><h1><%= P.title[lang] %></h1><p class="lead"><%= P.lead[lang] %></p></div></section>
+<section class="sec"><div class="wrap prose">
+  <% P.sections.forEach(function(s){ %>
+    <h2><%= s.h[lang] %></h2>
+    <% if (s.p) { %><p><%= fill(s.p[lang]) %></p><% } %>
+    <% if (s.ul) { %><ul><% s.ul[lang].forEach(function(li){ %><li><%= li %></li><% }) %></ul><% } %>
+  <% }) %>
+  <p><a class="btn btn-line" href="<%= base %>/hubungi"><%= S.nav_contact %></a></p>
+</div></section>
+<%- include('partials/foot') %>

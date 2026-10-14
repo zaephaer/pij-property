@@ -1,0 +1,40 @@
+<%- include('partials/head', {pageTitle: pg.title[lang]}) %>
+<%
+  var ICONS = [
+    '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-1.5A4.5 4.5 0 0 1 7 14h4a4.5 4.5 0 0 1 4.5 4.5V20"/><circle cx="17" cy="8.5" r="2.5"/><path d="M21.5 20v-1.2a3.5 3.5 0 0 0-2.7-3.4"/>',
+    '<path d="M5 21V3"/><path d="M5 4h13l-3 4.5L18 13H5"/>',
+    '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    '<path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/>',
+    '<circle cx="12" cy="12" r="9"/><path d="M8 14.5s1.5 2 4 2 4-2 4-2"/><path d="M9 9.5h.01M15 9.5h.01"/>',
+    '<path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15"/><path d="M5 19c3-5 6-8 10-10"/>',
+    '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+    '<path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M8 21h8"/>'
+  ];
+%>
+<section class="page-h"><div class="wrap"><h1><%= pg.title[lang] %></h1><p class="lead"><%= pg.lead[lang] %></p></div></section>
+<section class="sec"><div class="wrap">
+  <div class="vm-vision">
+    <small><%= pg.blocks[0].h[lang].toUpperCase() %></small>
+    <p><%= pg.blocks[0].p[lang] %></p>
+  </div>
+
+  <h2 class="vm-h"><%= pg.blocks[1].h[lang] %></h2>
+  <div class="vm-grid">
+    <% pg.blocks[1].ul[lang].forEach(function(m, i){ %>
+      <div class="vm-card"><div class="no"><%= i + 1 %></div><p><%= m %></p></div>
+    <% }) %>
+  </div>
+
+  <h2 class="vm-h"><%= pg.blocks[2].h[lang] %></h2>
+  <div class="vm-grid">
+    <% pg.blocks[2].ul[lang].forEach(function(v, i){ %>
+      <div class="vm-card vm-val">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><%- ICONS[i] %></svg>
+        <b><%= v %></b>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="vm-band"><%= S.footer_tag %></div>
+</div></section>
+<%- include('partials/foot') %>

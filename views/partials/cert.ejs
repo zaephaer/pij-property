@@ -1,0 +1,24 @@
+<%# param: c (certifications row) %>
+<%
+  var ms = lang === 'ms';
+  var tags = String(c.tags || '').split(',').map(function(x){ return x.trim(); }).filter(Boolean);
+%>
+<article class="cert">
+  <div class="cert-hero">
+    <% if (c.badge) { %>
+      <div class="grade <%= String(c.badge).length > 3 ? 'long' : '' %>"><b><%= c.badge %></b></div>
+    <% } else { %>
+      <div class="grade grade-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM8.5 12l2.5 2.5 4.5-5"/></svg></div>
+    <% } %>
+    <div class="cert-body">
+      <h2><%= pick(c, 'title') %></h2>
+      <p class="muted"><%= c.issuer %><% if (c.cert_no) { %> &middot; <%= ms ? 'No. sijil' : 'Certificate no.' %>: <b><%= c.cert_no %></b><% } %></p>
+      <% if (pick(c, 'scope')) { %><p><%= pick(c, 'scope') %></p><% } %>
+      <% if (tags.length) { %><div class="chips"><% tags.forEach(function(x){ %><span><%= x %></span><% }) %></div><% } %>
+      <p class="cert-meta">
+        <span class="tag t-siap"><%= ms ? 'Sah' : 'Valid' %><% if (c.valid_from) { %> <%= date(c.valid_from) %><% } %><% if (c.valid_to) { %> &ndash; <%= date(c.valid_to) %><% } %></span>
+        <% if (c.file) { %><a class="btn btn-sm" href="<%= c.file %>" target="_blank" rel="noopener"><%= ms ? 'Lihat sijil' : 'View certificate' %></a><% } %>
+      </p>
+    </div>
+  </div>
+</article>

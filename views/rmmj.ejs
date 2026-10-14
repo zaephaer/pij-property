@@ -1,0 +1,14 @@
+<%- include('partials/head', {pageTitle: 'RMMJ & TPI'}) %>
+<section class="page-h"><div class="wrap"><h1>RMMJ &amp; TPI</h1>
+  <p class="lead"><%= lang === 'ms' ? 'Rumah Mampu Milik Johor (RMMJ) dan Taman Perbadanan Islam (TPI).' : 'Rumah Mampu Milik Johor (RMMJ) and Taman Perbadanan Islam (TPI).' %></p></div></section>
+<section class="sec"><div class="wrap prose">
+  <% if (lang === 'ms') { %>
+    <p>Dasar TPI diluluskan oleh Majlis Mesyuarat Kerajaan Negeri Johor pada 11 Januari 2017. Pembangunan TPI memberi tumpuan kepada penyediaan Rumah Mampu Milik Johor (RMMJ) untuk golongan berpendapatan rendah (B40) dan sederhana (M40) seperti digariskan dalam Dasar Perumahan Awam Johor.</p>
+    <p>Tanggungjawab ini diamanahkan secara khusus kepada PIJ Property atau wakil yang dilantiknya.</p>
+  <% } else { %>
+    <p>The TPI policy was approved by the Johor State Executive Council on 11 January 2017. TPI development focuses on providing Rumah Mampu Milik Johor (RMMJ) for low-income (B40) and middle-income (M40) groups as outlined in the Johor Public Housing Policy.</p>
+    <p>This responsibility is specifically and exclusively entrusted to PIJ Property or its appointed representatives.</p>
+  <% } %>
+  <p><a class="btn" href="<%= base %>/projek"><%= S.nav_projects %></a></p>
+</div></section>
+<%- include('partials/foot') %>

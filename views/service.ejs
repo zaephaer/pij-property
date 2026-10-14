@@ -1,0 +1,44 @@
+<%- include('partials/head', {pageTitle: pg.title[lang]}) %>
+<%
+  var D = svc;
+  var icon = function(k){ return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICON[k] + '"/></svg>'; };
+%>
+<section class="sv-hero" style="background-image:linear-gradient(100deg,rgba(6,60,45,.88) 0%,rgba(6,60,45,.6) 50%,rgba(6,60,45,.2) 100%),url('/img/s/<%= D.image %>')">
+  <div class="wrap">
+    <p class="crumb"><a href="<%= base %>/perkhidmatan"><%= S.nav_services %></a></p>
+    <h1><%= pg.title[lang] %></h1>
+    <p><%= pg.lead[lang] %></p>
+  </div>
+</section>
+
+<section class="sv-stats"><div class="wrap sv-stats-in">
+  <% D.stats.forEach(function(s){ %><div><b><%= s.v %></b><span><%= s.l[lang] %></span></div><% }) %>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <h2 class="vm-h"><%= D.scopeTitle[lang] %></h2>
+  <div class="vm-grid sv-scope">
+    <% D.scope.forEach(function(c){ %>
+      <div class="vm-card sv-card"><div class="sv-ic"><%- icon(c.i) %></div><b><%= c.t[lang] %></b><p class="muted"><%= c.d[lang] %></p></div>
+    <% }) %>
+  </div>
+
+  <h2 class="vm-h"><%= D.stepsTitle[lang] %></h2>
+  <div class="sv-split <%= D.image2 ? '' : 'one' %>">
+    <ol class="sv-steps">
+      <% D.steps.forEach(function(s, i){ %>
+        <li>
+          <span class="sv-n"><% if (s.i) { %><%- icon(s.i) %><% } else { %><%= s.n || (i + 1) %><% } %></span>
+          <div><% if (s.i && s.n) { %><small><%= s.n %></small><% } %><b><%= s.t[lang] %></b></div>
+        </li>
+      <% }) %>
+    </ol>
+    <% if (D.image2) { %><figure class="sv-fig"><img src="/img/s/<%= D.image2 %>" alt="" loading="lazy"></figure><% } %>
+  </div>
+
+  <div class="vm-band sv-cta">
+    <span><%= S.nav_contact %> &mdash; <%= st.phone %> &middot; <%= st.notify_email %></span>
+    <a class="btn" href="<%= base %>/<%= D.cta.href %>"><%= D.cta.label[lang] %></a>
+  </div>
+</div></section>
+<%- include('partials/foot') %>

@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<section class="page-h"><div class="wrap"><h1><%= pg.title[lang] %></h1><p class="lead"><%= pg.lead[lang] %></p></div></section>
+<section class="sec"><div class="wrap <%= pg.image ? 'with-img' : 'prose' %>">
+  <% if (pg.image) { %><figure class="side-img"><img src="<%= pg.image %>" alt="<%= pg.imageAlt[lang] %>"></figure><% } %>
+  <div class="prose">
+  <% pg.blocks.forEach(function(b){ %>
+    <h2><%= b.h[lang] %></h2>
+    <% if (b.p) { %><p><%= b.p[lang] %></p><% } %>
+    <% if (b.ul) { %><ul><% b.ul[lang].forEach(function(li){ %><li><%= li %></li><% }) %></ul><% } %>
+  <% }) %>
+  <% if (group === 'about' && pg.title.ms === 'Pensijilan') { %>
+    <p><a class="btn" href="/files/cidb.jpg" target="_blank" rel="noopener"><%= S.cidb_title %></a></p>
+  <% } %>
+  <p><a class="btn btn-line" href="<%= base %>/hubungi"><%= S.nav_contact %></a></p>
+</div>
+</div></section>
+<%- include('partials/foot') %>

@@ -1,0 +1,13 @@
+<%- include('partials/head', {pageTitle: S.nav_tenders}) %>
+<section class="page-h"><div class="wrap"><h1><%= S.nav_tenders %></h1></div></section>
+<section class="sec"><div class="wrap">
+  <% if (!items.length) { %><p class="muted"><%= S.none %></p><% } %>
+  <% items.forEach(function(t){ %>
+    <a class="row" href="<%= base %>/tender/<%= t.id %>">
+      <span class="muted"><%= t.ref %> · <%= S.tender_close %>: <%= date(t.closing_date) %></span>
+      <strong><%= pick(t,'title') %></strong>
+      <span class="tag <%= t.closed ? 't-cadangan' : 't-siap' %>"><%= t.closed ? S.tender_closed : S.tender_open %></span>
+    </a>
+  <% }) %>
+</div></section>
+<%- include('partials/foot') %>

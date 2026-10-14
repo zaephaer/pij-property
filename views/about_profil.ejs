@@ -1,0 +1,40 @@
+<%- include('partials/head', {pageTitle: pg.title[lang]}) %>
+<% var t = function(ms, en){ return lang === 'ms' ? ms : en; }; %>
+<section class="page-h"><div class="wrap"><h1><%= pg.title[lang] %></h1><p class="lead"><%= pg.lead[lang] %></p></div></section>
+<section class="sec"><div class="wrap">
+  <div class="pf-top">
+    <img class="hero-img" src="<%= pg.image %>" alt="<%= pg.imageAlt[lang] %>">
+    <div class="pf-name">
+      <small><%= t('NAMA SYARIKAT', 'COMPANY NAME') %></small>
+      <h2>PIJ Property Development Sdn. Bhd.</h2>
+      <p><%= S.company_no %>: <b><%= st.company_no %></b></p>
+    </div>
+  </div>
+
+  <div class="vm-grid pf-tiles">
+    <div class="vm-card"><span class="pf-k"><%= t('Ditubuhkan', 'Incorporated') %></span><b class="pf-v">14 Nov 1994</b><small>30+ <%= t('tahun pengalaman', 'years of experience') %></small></div>
+    <div class="vm-card"><span class="pf-k"><%= t('Modal dibenarkan', 'Authorised capital') %></span><b class="pf-v">RM10.0j</b><small>RM10,000,000</small></div>
+    <div class="vm-card"><span class="pf-k"><%= t('Modal berbayar', 'Paid-up capital') %></span><b class="pf-v">RM5.2j</b><small>RM5,216,489</small></div>
+    <div class="vm-card"><span class="pf-k"><%= t('Ekuiti Bumiputera', 'Bumiputera equity') %></span><b class="pf-v">100%</b><small><%= t('Milik penuh PIJ Holdings', 'Wholly owned by PIJ Holdings') %></small></div>
+    <div class="vm-card"><span class="pf-k"><%= t('Lesen', 'Licence') %></span><b class="pf-v">LS 0010041</b><small><%= t('Pemaju perumahan', 'Housing developer') %></small></div>
+    <div class="vm-card"><span class="pf-k"><%= t('Pendaftaran CIDB', 'CIDB registration') %></span><b class="pf-v">G7</b><small>B04 · CE04 · CE21 · M15</small></div>
+  </div>
+
+  <h2 class="vm-h"><%= t('Video Korporat', 'Corporate Video') %></h2>
+  <figure class="corp-video">
+    <video controls playsinline preload="none" poster="/media/video-korporat-poster.jpg"
+      aria-label="<%= t('Video korporat PIJ Property Development', 'PIJ Property Development corporate video') %>">
+      <source src="/media/video-korporat.mp4" type="video/mp4">
+    </video>
+    <figcaption><%= t('Tempoh 4 minit 48 saat', 'Duration 4 min 48 s') %></figcaption>
+  </figure>
+
+  <h2 class="vm-h"><%= t('Pengurusan', 'Management') %></h2>
+  <div class="vm-grid">
+    <div class="vm-card"><div class="no">1</div><p><%= t('Diuruskan oleh pegawai kanan Perkhidmatan Awam Johor.', 'Managed by senior Johor Civil Service officers.') %></p></div>
+    <div class="vm-card"><div class="no">2</div><p><%= t('Disokong pasukan pengurusan yang berkelayakan dan berpengalaman.', 'Supported by a qualified and experienced management team.') %></p></div>
+    <div class="vm-card"><div class="no">3</div><p><%= t('Objektif: pembangun hartanah dan perunding pengurusan projek yang terkemuka.', 'Objective: a reputable property developer and project management consultant.') %></p></div>
+  </div>
+  <p><a class="btn btn-line" href="<%= base %>/hubungi"><%= S.nav_contact %></a></p>
+</div></section>
+<%- include('partials/foot') %>

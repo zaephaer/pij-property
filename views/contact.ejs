@@ -1,0 +1,16 @@
+<%- include('partials/head', {pageTitle: S.nav_contact}) %>
+<section class="page-h"><div class="wrap"><h1><%= S.nav_contact %></h1></div></section>
+<section class="sec"><div class="wrap two wide">
+  <div class="prose">
+    <h2>PIJ Property Development Sdn Bhd</h2>
+    <p class="addr"><%= st.address %></p>
+    <p><%= S.phone %>: <%= st.phone %><br><%= S.fax %>: <%= st.fax %><br><a href="mailto:<%= st.notify_email %>"><%= st.notify_email %></a></p>
+    <p><strong><%= S.office_hours %></strong><br><%= st['hours_' + lang] %></p>
+    <p><a class="btn btn-line" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Bangunan+PIJ+Holdings+Jalan+Bukit+Timbalan+Johor+Bahru">Google Maps</a></p>
+  </div>
+  <div>
+    <h3><%= S.enquire %></h3>
+    <%- include('partials/enquiry', {project: selected, back: base + '/hubungi'}) %>
+  </div>
+</div></section>
+<%- include('partials/foot') %>

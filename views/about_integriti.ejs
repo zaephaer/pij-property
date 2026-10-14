@@ -1,0 +1,35 @@
+<%- include('partials/head', {pageTitle: INTEGRITY.title[lang]}) %>
+<%
+  var abms = certs.filter(function(c){ return c.category === 'abms'; });
+  var commitment = st['commitment_' + lang] || st['commitment_' + (lang === 'ms' ? 'en' : 'ms')] || '';
+  var hasChannel = !!(st.whistle_email || st.whistle_phone);
+%>
+<section class="page-h"><div class="wrap"><h1><%= INTEGRITY.title[lang] %></h1><p class="lead"><%= INTEGRITY.lead[lang] %></p></div></section>
+<section class="sec"><div class="wrap">
+
+  <% if (commitment) { %>
+    <h2 class="vm-h"><%= INTEGRITY.commitmentH[lang] %></h2>
+    <div class="vm-vision int-commit">
+      <p><%= commitment %></p>
+      <small class="by"><%= INTEGRITY.commitmentBy[lang] %></small>
+    </div>
+  <% } %>
+
+  <% if (abms.length) { %>
+    <h2 class="vm-h"><%= INTEGRITY.certH[lang] %></h2>
+    <% abms.forEach(function(c){ %><%- include('partials/cert', {c: c}) %><% }) %>
+    <p class="muted"><a href="<%= base %>/kenali-kami/pensijilan"><%= INTEGRITY.allCerts[lang] %> &rarr;</a></p>
+  <% } %>
+
+  <% if (hasChannel) { %>
+    <h2 class="vm-h"><%= INTEGRITY.reportH[lang] %></h2>
+    <div class="vm-card report">
+      <p><%= INTEGRITY.reportP[lang] %></p>
+      <% if (st.whistle_email) { %><p><b><%= S.f_email %>:</b> <a href="mailto:<%= st.whistle_email %>"><%= st.whistle_email %></a></p><% } %>
+      <% if (st.whistle_phone) { %><p><b><%= S.phone %>:</b> <%= st.whistle_phone %></p><% } %>
+      <p class="muted"><%= INTEGRITY.sprm[lang] %> <a href="<%= INTEGRITY.sprmUrl %>" target="_blank" rel="noopener">sprm.gov.my</a></p>
+    </div>
+  <% } %>
+
+</div></section>
+<%- include('partials/foot') %>

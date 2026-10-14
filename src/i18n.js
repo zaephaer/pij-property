@@ -1,0 +1,66 @@
+// UI strings. Content rows from DB use *_ms / *_en columns; see pick().
+const S = {
+  ms: {
+    lang: 'ms', otherLang: 'en', otherLabel: 'English',
+    nav_projects: 'Projek', nav_services: 'Perkhidmatan', nav_about: 'Kenali Kami', nav_news: 'Berita',
+    nav_tenders: 'Tender', nav_careers: 'Kerjaya', nav_downloads: 'Muat Turun', nav_contact: 'Hubungi Kami',
+    hero_title: 'Membina Kediaman Berkualiti untuk Rakyat Johor',
+    hero_sub: 'PIJ Property Development Sdn Bhd, anak syarikat PIJ Holdings Sdn Bhd, komited dalam pembangunan hartanah yang berkualiti serta penyediaan perkhidmatan perundingan dan pengurusan projek untuk memenuhi keperluan masyarakat dan pelanggan.',
+    path_buy: 'Projek & Pemilikan Rumah', path_buy_d: 'Terokai projek perumahan, pilihan kediaman dan maklumat harga yang tersedia.',
+    path_corp: 'Perkhidmatan Korporat', path_corp_d: 'Kenali keupayaan, pensijilan serta perkhidmatan pembangunan, perundingan dan pengurusan projek untuk agensi dan rakan niaga.',
+    stat_homes: 'Unit kediaman', stat_shops: 'Ruang niaga', stat_gdc: 'GDC (2017–2028)', stat_gdv: 'GDV', stat_years: 'Tahun pengalaman',
+    featured: 'Projek Pilihan', all_projects: 'Semua projek', latest_news: 'Berita Terkini', all_news: 'Semua berita',
+    open_tenders: 'Tender Dibuka', all_tenders: 'Semua tender', read_more: 'Baca lanjut', view: 'Lihat',
+    status_all: 'Semua', status_siap: 'Siap', status_sedang: 'Sedang dibangunkan', status_cadangan: 'Cadangan',
+    cat_housing: 'Perumahan', cat_commercial: 'Komersial', cat_religious: 'Masjid & Surau',
+    f_location: 'Lokasi', f_units: 'Unit', f_gdv: 'GDV', f_area: 'Keluasan', f_status: 'Status',
+    enquire: 'Daftar Minat', enquire_note: 'Tinggalkan maklumat anda dan pasukan kami akan menghubungi anda.',
+    f_name: 'Nama', f_phone: 'No. telefon', f_email: 'Emel', f_project: 'Projek', f_message: 'Mesej', send: 'Hantar',
+    sent: 'Terima kasih. Mesej anda telah diterima dan kami akan menghubungi anda.', err: 'Sila isi nama dan nombor telefon atau emel yang sah.',
+    tender_ref: 'No. rujukan', tender_close: 'Tarikh tutup', tender_open: 'Dibuka', tender_closed: 'Tutup', tender_result: 'Keputusan',
+    attachment: 'Lampiran', none: 'Tiada rekod buat masa ini.', apply: 'Mohon', office_hours: 'Waktu pejabat',
+    address: 'Alamat', phone: 'Telefon', fax: 'Faks', company_no: 'No. Pendaftaran Syarikat',
+    footer_tag: 'Dengan setiap kesulitan, ada kemudahan. (Al-Insyirah 94:5)',
+    home: 'Laman Utama', not_found: 'Halaman tidak dijumpai', back: 'Kembali', cidb_title: 'Perakuan Pendaftaran CIDB',
+    published: 'Disiarkan', replay: 'Main semula', know_us: 'Kenali Kami', privacy: 'Notis Privasi',
+    consent_pre: 'Saya telah membaca', consent_post: 'dan bersetuju data peribadi saya diproses untuk membalas pertanyaan ini.',
+    err_consent: 'Sila tanda kotak persetujuan untuk meneruskan.',
+    brand_line: 'PIJ Property Development: membina rumah mampu milik dan prasarana komuniti untuk rakyat Johor sejak 1994.',
+  },
+  en: {
+    lang: 'en', otherLang: 'ms', otherLabel: 'Bahasa Melayu',
+    nav_projects: 'Projects', nav_services: 'Services', nav_about: 'About Us', nav_news: 'News',
+    nav_tenders: 'Tenders', nav_careers: 'Careers', nav_downloads: 'Downloads', nav_contact: 'Contact Us',
+    hero_title: 'Building Quality Homes for the People of Johor',
+    hero_sub: 'PIJ Property Development Sdn Bhd, a subsidiary of PIJ Holdings Sdn Bhd, is committed to quality property development and to providing consultancy and project management services that meet the needs of the community and customers.',
+    path_buy: 'Projects & Home Ownership', path_buy_d: 'Explore housing projects, residential options and available pricing information.',
+    path_corp: 'Corporate Services', path_corp_d: 'Discover our capabilities, certification and development, consultancy and project management services for agencies and business partners.',
+    stat_homes: 'Residential units', stat_shops: 'Commercial units', stat_gdc: 'GDC (2017–2028)', stat_gdv: 'GDV', stat_years: 'Years of experience',
+    featured: 'Featured Projects', all_projects: 'All projects', latest_news: 'Latest News', all_news: 'All news',
+    open_tenders: 'Open Tenders', all_tenders: 'All tenders', read_more: 'Read more', view: 'View',
+    status_all: 'All', status_siap: 'Completed', status_sedang: 'Under development', status_cadangan: 'Proposed',
+    cat_housing: 'Housing', cat_commercial: 'Commercial', cat_religious: 'Mosque & Surau',
+    f_location: 'Location', f_units: 'Units', f_gdv: 'GDV', f_area: 'Land area', f_status: 'Status',
+    enquire: 'Register Interest', enquire_note: 'Leave your details and our team will contact you.',
+    f_name: 'Name', f_phone: 'Phone', f_email: 'Email', f_project: 'Project', f_message: 'Message', send: 'Send',
+    sent: 'Thank you. Your message has been received and we will contact you.', err: 'Please enter your name and a valid phone number or email.',
+    tender_ref: 'Reference no.', tender_close: 'Closing date', tender_open: 'Open', tender_closed: 'Closed', tender_result: 'Result',
+    attachment: 'Attachment', none: 'No records at the moment.', apply: 'Apply', office_hours: 'Office hours',
+    address: 'Address', phone: 'Phone', fax: 'Fax', company_no: 'Company Registration No.',
+    footer_tag: 'With every difficulty, there is relief. (Al-Insyirah 94:5)',
+    home: 'Home', not_found: 'Page not found', back: 'Back', cidb_title: 'CIDB Registration Certificate',
+    published: 'Published', replay: 'Replay', know_us: 'Get to Know Us', privacy: 'Privacy Notice',
+    consent_pre: 'I have read the', consent_post: 'and agree to my personal data being processed to respond to this enquiry.',
+    err_consent: 'Please tick the consent box to continue.',
+    brand_line: 'PIJ Property Development: building affordable homes and community infrastructure for the people of Johor since 1994.',
+  },
+};
+
+const pick = (row, field, lang) => (row[`${field}_${lang}`] || row[`${field}_${lang === 'ms' ? 'en' : 'ms'}`] || '');
+const fmtDate = (d, lang) => {
+  if (!d) return '';
+  const dt = new Date(d);
+  return isNaN(dt) ? d : dt.toLocaleDateString(lang === 'ms' ? 'ms-MY' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
+module.exports = { S, pick, fmtDate };

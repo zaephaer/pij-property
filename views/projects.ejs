@@ -1,0 +1,24 @@
+<%- include('partials/head', {pageTitle: S.nav_projects}) %>
+<section class="page-h"><div class="wrap"><h1><%= S.nav_projects %></h1>
+  <div class="filters">
+    <% [['', S.status_all], ['siap', S.status_siap], ['sedang', S.status_sedang], ['cadangan', S.status_cadangan]].forEach(function(o){ %>
+      <a class="chip <%= status === o[0] ? 'on' : '' %>" href="?status=<%= o[0] %>&category=<%= category %>"><%= o[1] %></a>
+    <% }) %>
+    <span class="sep"></span>
+    <% [['', S.status_all], ['housing', S.cat_housing], ['commercial', S.cat_commercial], ['religious', S.cat_religious]].forEach(function(o){ %>
+      <a class="chip <%= category === o[0] ? 'on' : '' %>" href="?status=<%= status %>&category=<%= o[0] %>"><%= o[1] %></a>
+    <% }) %>
+  </div></div></section>
+<section class="sec"><div class="wrap">
+  <% if (!projects.length) { %><p class="muted"><%= S.none %></p><% } %>
+  <div class="cards">
+    <% projects.forEach(function(p){ %>
+      <a class="card" href="<%= base %>/projek/<%= p.slug %>">
+        <% if (p.image) { %><img src="<%= p.image %>" alt="<%= p.name %>" loading="lazy"><% } else { %><div class="ph"><img src="/img/logo.png" alt=""></div><% } %>
+        <div class="card-b"><span class="tag t-<%= p.status %>"><%= S['status_' + p.status] %></span>
+          <h3><%= p.name %></h3><p class="muted"><%= p.location %><%= p.units ? ' · ' + p.units : '' %></p></div>
+      </a>
+    <% }) %>
+  </div>
+</div></section>
+<%- include('partials/foot') %>

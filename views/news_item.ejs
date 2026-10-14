@@ -1,0 +1,8 @@
+<%- include('partials/head', {pageTitle: pick(n,'title')}) %>
+<section class="page-h"><div class="wrap"><p class="crumb"><a href="<%= base %>/berita"><%= S.nav_news %></a></p>
+  <h1><%= pick(n,'title') %></h1><p class="muted"><%= date(n.published_at) %></p></div></section>
+<section class="sec"><div class="wrap prose">
+  <% if (n.image) { %><img class="hero-img" src="<%= n.image %>" alt=""><% } %>
+  <div class="pre"><%= pick(n,'body') %></div>
+</div></section>
+<%- include('partials/foot') %>

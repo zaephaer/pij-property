@@ -1,0 +1,15 @@
+<%- include('../partials/ahead') %>
+<div class="bar"><h1>Pertanyaan</h1><a class="btn" href="/admin/pertanyaan.csv">Eksport CSV</a></div>
+<table>
+  <thead><tr><th>Tarikh</th><th>Nama</th><th>Telefon</th><th>Emel</th><th>Projek</th><th>Mesej</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  <% if (!rows.length) { %><tr><td colspan="8">Tiada pertanyaan.</td></tr><% } %>
+  <% rows.forEach(function(x){ %>
+    <tr><td><%= x.created_at %></td><td><%= x.name %></td><td><%= x.phone %></td><td><%= x.email %></td><td><%= x.project %></td><td><%= x.message %></td>
+      <td><form method="post" action="/admin/pertanyaan/<%= x.id %>/status"><input type="hidden" name="_csrf" value="<%= csrf %>"><select name="status" class="st-sel st-<%= x.status || 'baharu' %>" onchange="this.form.submit()"><% ['baharu','dihubungi','selesai'].forEach(function(s){ %><option <%= (x.status || 'baharu') === s ? 'selected' : '' %>><%= s %></option><% }) %></select></form></td>
+      <td class="act"><form method="post" action="/admin/pertanyaan/<%= x.id %>/padam" onsubmit="return confirm('Padam?')">
+        <input type="hidden" name="_csrf" value="<%= csrf %>"><button class="link danger">Padam</button></form></td></tr>
+  <% }) %>
+  </tbody>
+</table>
+<%- include('../partials/afoot') %>

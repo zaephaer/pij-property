@@ -1,0 +1,79 @@
+<%- include('../partials/ahead') %>
+<div class="bar"><h1>Dashboard</h1>
+  <div class="qa">
+    <a class="btn" href="/admin/berita/baru">+ Berita</a>
+    <a class="btn" href="/admin/tender/baru">+ Tender</a>
+    <a class="btn" href="/admin/projek/baru">+ Projek</a>
+    <a class="btn ghost" href="/ms" target="_blank" rel="noopener">Lihat laman</a>
+  </div>
+</div>
+
+<div class="tiles">
+  <% Object.keys(resources).forEach(function(k){ %>
+    <a class="tile" href="/admin/<%= k %>"><b><%= counts[k] %></b><span><%= resources[k].label %></span></a>
+  <% }) %>
+  <a class="tile <%= newEnq ? 'hot' : '' %>" href="/admin/pertanyaan"><b><%= enquiries %></b><span>Pertanyaan<% if (newEnq) { %> &middot; <%= newEnq %> baharu<% } %></span></a>
+</div>
+
+<div class="dgrid">
+  <section class="panel">
+    <h2>Perlu perhatian <% if (attentionTotal) { %><span class="chip-n"><%= attentionTotal %></span><% } %></h2>
+    <% if (!attention.length) { %><p class="muted">Tiada apa-apa yang memerlukan tindakan.</p><% } %>
+    <ul class="att">
+      <% attention.forEach(function(a){ %>
+        <li class="<%= a.level %>"><a href="<%= a.href %>"><%= a.text %></a></li>
+      <% }) %>
+    </ul>
+    <% if (attentionTotal > attention.length) { %><p class="muted">+ <%= attentionTotal - attention.length %> lagi</p><% } %>
+  </section>
+
+  <section class="panel">
+    <h2>Pertanyaan 30 hari terakhir <span class="muted sm">(<%= total30 %>)</span></h2>
+    <div class="bars" role="img" aria-label="Graf pertanyaan 30 hari">
+      <% days.forEach(function(x){ %><i title="<%= x.d %>: <%= x.n %>" style="height:<%= Math.max(3, Math.round(x.n / maxDay * 100)) %>%" class="<%= x.n ? 'on' : '' %>"></i><% }) %>
+    </div>
+    <div class="bars-ax"><span><%= days[0].d.slice(5) %></span><span><%= days[29].d.slice(5) %></span></div>
+    <h3>Projek paling diminati</h3>
+    <% if (!topProjects.length) { %><p class="muted">Belum ada pertanyaan berkaitan projek.</p><% } %>
+    <% topProjects.forEach(function(p){ %>
+      <div class="hbar"><span><%= p.project %></span><div><i style="width:<%= Math.round(p.n / topProjects[0].n * 100) %>%"></i></div><b><%= p.n %></b></div>
+    <% }) %>
+  </section>
+
+  <section class="panel">
+    <h2>Pertanyaan terkini <a class="more" href="/admin/pertanyaan">Semua &rarr;</a></h2>
+    <% if (!latestEnq.length) { %><p class="muted">Belum ada pertanyaan.</p><% } %>
+    <% latestEnq.forEach(function(x){ %>
+      <div class="row2"><div><b><%= x.name %></b><span class="muted"><%= x.project || '-' %> &middot; <%= (x.created_at || '').slice(0, 10) %></span></div>
+        <span class="st st-<%= x.status || 'baharu' %>"><%= x.status || 'baharu' %></span></div>
+    <% }) %>
+  </section>
+
+  <section class="panel">
+    <h2>Status projek <span class="muted sm">(<%= projectTotal %>)</span></h2>
+    <div class="stack">
+      <% [['siap','Siap','s1'],['sedang','Sedang dibangunkan','s2'],['cadangan','Cadangan','s3']].forEach(function(s){ var c = statusCount[s[0]] || 0; if (c) { %>
+        <i class="<%= s[2] %>" style="flex:<%= c %>" title="<%= s[1] %>: <%= c %>"><%= c %></i>
+      <% }}) %>
+    </div>
+    <ul class="legend">
+      <li><i class="s1"></i>Siap <b><%= statusCount.siap || 0 %></b></li>
+      <li><i class="s2"></i>Sedang dibangunkan <b><%= statusCount.sedang || 0 %></b></li>
+      <li><i class="s3"></i>Cadangan <b><%= statusCount.cadangan || 0 %></b></li>
+    </ul>
+    <h3>Kandungan terkini</h3>
+    <% latestNews.forEach(function(n){ %><div class="row2"><a href="/admin/berita/<%= n.id %>"><%= n.title_ms %></a><span class="muted"><%= (n.updated_at || n.published_at || '').slice(0, 10) %></span></div><% }) %>
+    <% openTenders.forEach(function(t){ %><div class="row2"><a href="/admin/tender/<%= t.id %>">Tender: <%= t.title_ms %></a><span class="muted"><%= t.closing_date ? 'tutup ' + t.closing_date : '' %></span></div><% }) %>
+    <% if (!latestNews.length && !openTenders.length) { %><p class="muted">Belum ada berita atau tender.</p><% } %>
+  </section>
+
+  <section class="panel wide">
+    <h2>Senarai semak persediaan laman</h2>
+    <ul class="chk">
+      <% checklist.forEach(function(c){ %>
+        <li class="<%= c.ok ? 'done' : 'todo' %>"><span class="mark"><%- c.ok ? '&#10003;' : '!' %></span><div><b><%= c.label %></b><% if (!c.ok) { %><small><%= c.hint %></small><% } %></div></li>
+      <% }) %>
+    </ul>
+  </section>
+</div>
+<%- include('../partials/afoot') %>

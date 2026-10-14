@@ -1,0 +1,55 @@
+const express = require('express');
+const path = require('path');
+const crypto = require('crypto');
+const session = require('express-session');
+const { seed } = require('./db');
+
+seed();
+
+const { anonymiseExpired } = require('./retention');
+const sweep = () => {
+  try { const n = anonymiseExpired(); if (n) console.log(`[pdpa] anonymised ${n} expired enquiries`); } catch (e) { console.error('[pdpa] sweep failed', e); }
+};
+sweep();
+setInterval(sweep, 24 * 3600 * 1000).unref();
+
+const app = express();
+const root = path.join(__dirname, '..');
+app.set('view engine', 'ejs');
+app.set('views', path.join(root, 'views'));
+app.set('trust proxy', 1);
+app.disable('x-powered-by');
+
+app.use((req, res, next) => {
+  res.set({ 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'SAMEORIGIN', 'Referrer-Policy': 'strict-origin-when-cross-origin' });
+  next();
+});
+// CSS revalidates on every load (ETag) so style changes show immediately; images stay cached.
+app.use('/css', express.static(path.join(root, 'public', 'css'), { maxAge: 0 }));
+app.use(express.static(path.join(root, 'public'), { maxAge: '7d' }));
+app.use('/uploads', express.static(path.join(root, 'uploads'), { maxAge: '7d' }));
+app.use(express.urlencoded({ extended: false, limit: '100kb' }));
+
+// ponytail: MemoryStore, sessions reset on restart. Swap for a SQLite-backed store if that matters.
+const secret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+app.use(session({
+  secret, resave: false, saveUninitialized: false, name: 'pij.sid',
+  cookie: { httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production', maxAge: 8 * 3600 * 1000 },
+}));
+
+app.use('/admin', require('./routes/admin'));
+app.get('/', (req, res) => res.redirect(`/${req.acceptsLanguages('ms', 'en') || 'ms'}`));
+for (const l of ['ms', 'en']) app.use('/' + l, (req, res, next) => { req.lang = l; next(); }, require('./routes/public'));
+
+app.use((req, res) => res.status(404).render('404', {
+  S: require('./i18n').S.ms, lang: 'ms', base: '/ms', st: require('./db').settings(), path: '', nav: { about: [], services: [] }, menu: require('./menu')(),
+}));
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  console.error(err);
+  res.status(500).send('Ralat pelayan / Server error');
+});
+
+const port = process.env.PORT || 3000;
+if (require.main === module) app.listen(port, () => console.log(`PIJ Property on http://localhost:${port}`));
+module.exports = app;
+

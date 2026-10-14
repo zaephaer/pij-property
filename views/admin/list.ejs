@@ -1,0 +1,19 @@
+<%- include('../partials/ahead') %>
+<div class="bar"><h1><%= R.label %></h1><a class="btn" href="/admin/<%= key %>/baru">+ Tambah</a></div>
+<table>
+  <thead><tr><% R.cols.forEach(function(c){ %><th><%= c %></th><% }) %><th></th></tr></thead>
+  <tbody>
+  <% if (!rows.length) { %><tr><td colspan="<%= R.cols.length + 1 %>">Tiada rekod.</td></tr><% } %>
+  <% rows.forEach(function(row){ %>
+    <tr>
+      <% R.cols.forEach(function(c){ %><td><%= row[c] %></td><% }) %>
+      <td class="act">
+        <a href="/admin/<%= key %>/<%= row.id %>">Edit</a>
+        <form method="post" action="/admin/<%= key %>/<%= row.id %>/padam" onsubmit="return confirm('Padam rekod ini?')">
+          <input type="hidden" name="_csrf" value="<%= csrf %>"><button class="link danger">Padam</button></form>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+<%- include('../partials/afoot') %>

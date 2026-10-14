@@ -1,0 +1,9 @@
+<%- include('partials/head', {pageTitle: S.nav_downloads}) %>
+<section class="page-h"><div class="wrap"><h1><%= S.nav_downloads %></h1></div></section>
+<section class="sec"><div class="wrap">
+  <% if (!items.length) { %><p class="muted"><%= S.none %></p><% } %>
+  <% items.forEach(function(d){ %>
+    <a class="row" href="<%= d.file %>" target="_blank" rel="noopener"><strong><%= pick(d,'title') %></strong><span class="muted">PDF / <%= d.file.split('.').pop().toUpperCase() %></span></a>
+  <% }) %>
+</div></section>
+<%- include('partials/foot') %>

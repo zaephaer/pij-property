@@ -1,0 +1,22 @@
+<%- include('../partials/ahead') %>
+<div class="bar"><h1><%= row.id ? 'Edit' : 'Tambah' %> &mdash; <%= R.label %></h1><a href="/admin/<%= key %>">&larr; Kembali</a></div>
+<% if (error) { %><p class="bad"><%= error %></p><% } %>
+<form class="edit" method="post" enctype="multipart/form-data" action="/admin/<%= key %>/<%= row.id ? row.id : 'baru' %>">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <% R.fields.forEach(function(fd){ var v = row[fd.name] == null ? '' : row[fd.name]; %>
+    <label><%= fd.label %>
+      <% if (fd.type === 'textarea') { %><textarea name="<%= fd.name %>" rows="6"><%= v %></textarea>
+      <% } else if (fd.type === 'select') { %><select name="<%= fd.name %>"><% fd.options.forEach(function(o){ %><option <%= v === o ? 'selected' : '' %>><%= o %></option><% }) %></select>
+      <% } else if (fd.type === 'image' || fd.type === 'file') { %>
+        <% if (v) { %><small>Semasa: <a href="<%= v %>" target="_blank" rel="noopener"><%= v %></a> (muat naik baharu untuk ganti)</small><% } %>
+        <input type="file" name="<%= fd.name %>" accept="<%= fd.type === 'image' ? 'image/jpeg,image/png,image/webp' : '.pdf,image/*' %>">
+      <% } else if (fd.type === 'gallery') { %>
+        <% if (v) { %><small>Semasa: <%= v.split(',').length %> gambar (gambar baharu akan ditambah)</small><% } %>
+        <input type="file" name="gallery" accept="image/jpeg,image/png,image/webp" multiple>
+      <% } else if (fd.type === 'password') { %><input type="password" name="<%= fd.name %>" autocomplete="new-password" minlength="10">
+      <% } else { %><input type="<%= fd.type === 'date' ? 'date' : fd.type === 'number' ? 'number' : fd.type === 'email' ? 'email' : 'text' %>" name="<%= fd.name %>" value="<%= v %>"><% } %>
+    </label>
+  <% }) %>
+  <button class="btn">Simpan</button>
+</form>
+<%- include('../partials/afoot') %>

@@ -1,0 +1,15 @@
+<%- include('../partials/ahead') %>
+<h1>Tetapan</h1>
+<% if (saved) { %><p class="ok">Disimpan.</p><% } %>
+<form class="edit" method="post" action="/admin/tetapan">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <% Object.keys(labels).forEach(function(k){ %>
+    <label><%= labels[k] %>
+      <% if (k === 'address') { %><textarea name="<%= k %>" rows="4"><%= st[k] || '' %></textarea>
+      <% } else if (k.indexOf('commitment_') === 0) { %><textarea name="<%= k %>" rows="5"><%= st[k] || '' %></textarea>
+      <% } else { %><input name="<%= k %>" value="<%= st[k] || '' %>"><% } %>
+    </label>
+  <% }) %>
+  <button class="btn">Simpan</button>
+</form>
+<%- include('../partials/afoot') %>

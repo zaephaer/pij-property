@@ -1,0 +1,10 @@
+<%- include('../partials/ahead') %>
+<form class="login" method="post" action="/admin/login">
+  <img src="/img/logo.png" alt="PIJ Property">
+  <h1>Log masuk Admin</h1>
+  <% if (error) { %><p class="bad"><%= error %></p><% } %>
+  <label>Emel<input type="email" name="email" required autofocus></label>
+  <label>Kata laluan<input type="password" name="password" required></label>
+  <button class="btn">Log masuk</button>
+</form>
+<%- include('../partials/afoot') %>

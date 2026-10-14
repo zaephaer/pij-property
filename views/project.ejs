@@ -1,0 +1,28 @@
+<%- include('partials/head', {pageTitle: p.name}) %>
+<section class="page-h"><div class="wrap"><p class="crumb"><a href="<%= base %>/projek"><%= S.nav_projects %></a></p>
+  <h1><%= p.name %></h1><span class="tag t-<%= p.status %>"><%= S['status_' + p.status] %></span></div></section>
+<section class="sec"><div class="wrap two wide">
+  <div>
+    <% if (p.image) { %><img class="hero-img" src="<%= p.image %>" alt="<%= p.name %>"><% } %>
+    <p class="lead"><%= pick(p,'summary') %></p>
+    <% if (gallery.length) { %><div class="gal"><% gallery.forEach(function(g){ %><img src="<%= g %>" alt="" loading="lazy"><% }) %></div><% } %>
+  </div>
+  <aside>
+    <dl class="facts">
+      <% [['f_location','location'],['f_units','units'],['f_gdv','gdv'],['f_area','area']].forEach(function(k){ if (p[k[1]]) { %>
+        <dt><%= S[k[0]] %></dt><dd><%= p[k[1]] %></dd>
+      <% }}) %>
+      <dt><%= S.f_status %></dt><dd><%= S['status_' + p.status] %></dd>
+    </dl>
+    <% if (p.category === 'religious') { %>
+      <a class="btn btn-line" href="<%= base %>/hubungi"><%= S.nav_contact %></a>
+    <% } else if (p.status === 'siap') { %>
+      <p class="muted"><%= lang === 'ms' ? 'Projek ini telah siap dan tidak lagi menerima pendaftaran minat. Untuk pertanyaan lain, sila hubungi kami.' : 'This project is completed and no longer accepting registrations of interest. For other enquiries, please contact us.' %></p>
+      <a class="btn btn-line" href="<%= base %>/hubungi"><%= S.nav_contact %></a>
+    <% } else { %>
+      <h3><%= S.enquire %></h3>
+      <%- include('partials/enquiry', {project: p.name, back: base + '/projek/' + p.slug}) %>
+    <% } %>
+  </aside>
+</div></section>
+<%- include('partials/foot') %>

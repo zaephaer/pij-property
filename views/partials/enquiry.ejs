@@ -1,0 +1,15 @@
+<%# params: project (string, optional), back (path) %>
+<form class="enq" method="post" action="<%= base %>/enquiry">
+  <input type="hidden" name="back" value="<%= back %>">
+  <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+  <% if (sent) { %><p class="ok"><%= S.sent %></p><% } %>
+  <% if (formErr) { %><p class="bad"><%= formErr === 'consent' ? S.err_consent : S.err %></p><% } %>
+  <label><%= S.f_name %> *<input name="name" required maxlength="120"></label>
+  <label><%= S.f_phone %><input name="phone" type="tel" maxlength="40"></label>
+  <label><%= S.f_email %><input name="email" type="email" maxlength="120"></label>
+  <label><%= S.f_project %><input name="project" value="<%= project || '' %>" maxlength="160"></label>
+  <label><%= S.f_message %><textarea name="message" rows="4" maxlength="2000"></textarea></label>
+  <label class="consent"><input type="checkbox" name="consent" required>
+    <span><%= S.consent_pre %> <a href="<%= base %>/<%= lang === 'ms' ? 'notis-privasi' : 'privacy-notice' %>" target="_blank" rel="noopener"><%= S.privacy %></a> <%= S.consent_post %></span></label>
+  <button class="btn" type="submit"><%= S.send %></button>
+</form>
