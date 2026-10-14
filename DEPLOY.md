@@ -15,3 +15,4 @@ Env vars: `PORT`, `SESSION_SECRET` (long random), `ADMIN_EMAIL`, `ADMIN_PASSWORD
 - Without `SMTP_HOST`, enquiries are still stored and shown in /admin/pertanyaan; no email is sent.
 - Smoke test: `npm test`.
 - PDPA: the server anonymises enquiries older than 12 months on start and then every 24 h (see `src/retention.js`). Fill **Admin > Tetapan > PDPA** (contact + legal review date) before go-live; the Privacy Notice text in `src/privacy-content.js` is a draft for legal review.
+- Coolify + Cloudflare Tunnel: see [docs/DEPLOY-COOLIFY.md](docs/DEPLOY-COOLIFY.md) (Dockerfile, volumes, env, backups). Behind a proxy set `TRUST_PROXY` to the number of hops (2 for Tunnel + Traefik).

@@ -17,7 +17,9 @@ const app = express();
 const root = path.join(__dirname, '..');
 app.set('view engine', 'ejs');
 app.set('views', path.join(root, 'views'));
-app.set('trust proxy', 1);
+// Hops between the visitor and this app (Cloudflare Tunnel -> Coolify/Traefik is usually 2). Wrong value => every visitor shares one IP for rate limiting.
+app.set('trust proxy', process.env.TRUST_PROXY ? Number(process.env.TRUST_PROXY) : 1);
+app.get('/healthz', (req, res) => res.type('text').send('ok'));
 app.disable('x-powered-by');
 
 app.use((req, res, next) => {
@@ -30,9 +32,12 @@ app.use(express.static(path.join(root, 'public'), { maxAge: '7d' }));
 app.use('/uploads', express.static(path.join(root, 'uploads'), { maxAge: '7d' }));
 app.use(express.urlencoded({ extended: false, limit: '100kb' }));
 
-// ponytail: MemoryStore, sessions reset on restart. Swap for a SQLite-backed store if that matters.
+// Sessions are stored in SQLite (see session-store.js) so they survive restarts/deploys,
+// but only if SESSION_SECRET is stable: a random per-boot secret invalidates every cookie.
+if (!process.env.SESSION_SECRET && process.env.NODE_ENV === 'production') console.warn('[config] SESSION_SECRET is not set: admins will be logged out on every restart');
 const secret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 app.use(session({
+  store: new (require('./session-store'))(),
   secret, resave: false, saveUninitialized: false, name: 'pij.sid',
   cookie: { httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production', maxAge: 8 * 3600 * 1000 },
 }));
