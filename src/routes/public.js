@@ -20,6 +20,8 @@ r.use((req, res, next) => {
     nav: { about: content.groups.about.map((k) => ({ slug: k, title: content.about[k].title[lang] })),
       services: content.groups.services.map((k) => ({ slug: k, title: content.services[k].title[lang] })) },
     menu: menuFlags(),
+    siteUrl: `${req.protocol}://${req.get('host')}`,
+    noindex: Object.keys(req.query).length > 0, // filtered/flash URLs duplicate the clean page
     sent: req.query.sent === '1', formErr: String(req.query.err || ''), flash: null,
   };
   next();

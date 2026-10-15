@@ -1,4 +1,4 @@
-<%- include('partials/head', {pageTitle: S.nav_news}) %>
+<%- include('partials/head', {pageTitle: S.nav_news, pageDesc: S.desc_news}) %>
 <section class="page-h"><div class="wrap"><h1><%= S.nav_news %></h1></div></section>
 <section class="sec"><div class="wrap">
   <% if (!items.length) { %><p class="muted"><%= S.none %></p><% } %>

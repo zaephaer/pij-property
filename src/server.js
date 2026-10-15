@@ -14,6 +14,7 @@ sweep();
 setInterval(sweep, 24 * 3600 * 1000).unref();
 
 const app = express();
+app.use(require('compression')());
 const root = path.join(__dirname, '..');
 app.set('view engine', 'ejs');
 app.set('views', path.join(root, 'views'));
@@ -27,6 +28,10 @@ app.use((req, res, next) => {
   next();
 });
 // CSS revalidates on every load (ETag) so style changes show immediately; images stay cached.
+// Fonts never change under the same name: cache for a year.
+app.use('/fonts', express.static(path.join(root, 'public', 'fonts'), { maxAge: '365d', immutable: true }));
+app.use('/admin', (req, res, next) => { res.set('X-Robots-Tag', 'noindex, nofollow'); next(); });
+app.use(require('./routes/seo'));
 app.use('/css', express.static(path.join(root, 'public', 'css'), { maxAge: 0 }));
 app.use(express.static(path.join(root, 'public'), { maxAge: '7d' }));
 app.use('/uploads', express.static(path.join(root, 'uploads'), { maxAge: '7d' }));
@@ -47,7 +52,7 @@ app.get('/', (req, res) => res.redirect(`/${req.acceptsLanguages('ms', 'en') || 
 for (const l of ['ms', 'en']) app.use('/' + l, (req, res, next) => { req.lang = l; next(); }, require('./routes/public'));
 
 app.use((req, res) => res.status(404).render('404', {
-  S: require('./i18n').S.ms, lang: 'ms', base: '/ms', st: require('./db').settings(), path: '', nav: { about: [], services: [] }, menu: require('./menu')(),
+  S: require('./i18n').S.ms, lang: 'ms', base: '/ms', st: require('./db').settings(), path: '', nav: { about: [], services: [] }, menu: require('./menu')(), siteUrl: `${req.protocol}://${req.get('host')}`, noindex: true,
 }));
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.error(err);

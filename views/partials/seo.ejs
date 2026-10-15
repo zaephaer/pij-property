@@ -1,0 +1,57 @@
+<%
+  // Title, description, Open Graph/Twitter, hreflang, robots and JSON-LD for the current page.
+  // Everything is derived from locals the page already has, so views only need to pass pageTitle (+ optional pageDesc).
+  var L = locals;
+  var isHome = path === '/';
+  var brand = 'PIJ Property Development';
+  var titleText = isHome ? S.title_home : (L.pageTitle ? L.pageTitle + ' | ' + brand : brand);
+  var clip = function (s, n) { s = String(s || '').replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s; };
+  var raw = L.pageDesc
+    || (L.p && typeof L.p === 'object' && pick(L.p, 'summary'))
+    || (L.pg && typeof L.pg === 'object' && L.pg.lead && L.pg.lead[lang])
+    || (L.n && typeof L.n === 'object' && pick(L.n, 'body'))
+    || (L.t && typeof L.t === 'object' && pick(L.t, 'title'))
+    || S.meta_default;
+  var desc = clip(raw, 158);
+  var abs = function (u) { return /^https?:/.test(u) ? u : siteUrl + u; };
+  var img = abs((L.p && typeof L.p === 'object' && L.p.image) || (L.n && typeof L.n === 'object' && L.n.image) || '/img/og-default.jpg');
+  var rest = isHome ? '' : path;
+  var slugFor = function (l) { return (rest === '/notis-privasi' || rest === '/privacy-notice') ? (l === 'ms' ? '/notis-privasi' : '/privacy-notice') : rest; };
+  var urlFor = function (l) { return siteUrl + '/' + l + slugFor(l); };
+  var cur = urlFor(lang);
+  var org = null;
+  if (isHome) {
+    var street = String(st.address || '').split('\n').slice(0, 2).join(', ');
+    org = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'Organization', '@id': siteUrl + '/#org', name: 'PIJ Property Development Sdn. Bhd.', legalName: 'PIJ Property Development Sdn. Bhd.',
+          alternateName: ['PIJ Property', 'PIJ Property Development', 'PPDSB'], url: siteUrl + '/', logo: siteUrl + '/img/logo.png', image: siteUrl + '/img/og-default.jpg',
+          description: S.meta_default, foundingDate: '1994-11-14', telephone: st.phone, email: st.notify_email,
+          address: { '@type': 'PostalAddress', streetAddress: street, addressLocality: 'Johor Bahru', postalCode: '80000', addressRegion: 'Johor', addressCountry: 'MY' },
+          parentOrganization: { '@type': 'Organization', name: 'PIJ Holdings Sdn Bhd' },
+          sameAs: [st.facebook_url, st.linkedin_url].filter(Boolean) },
+        { '@type': 'WebSite', '@id': siteUrl + '/#website', url: siteUrl + '/', name: brand, inLanguage: ['ms', 'en'], publisher: { '@id': siteUrl + '/#org' } }
+      ]
+    };
+  }
+%>
+<title><%= titleText %></title>
+<meta name="description" content="<%= desc %>">
+<% if (L.noindex) { %><meta name="robots" content="noindex, follow"><% } else { %><meta name="robots" content="index, follow, max-image-preview:large"><% } %>
+<link rel="alternate" hreflang="ms" href="<%= urlFor('ms') %>">
+<link rel="alternate" hreflang="en" href="<%= urlFor('en') %>">
+<link rel="alternate" hreflang="x-default" href="<%= urlFor('ms') %>">
+<meta property="og:site_name" content="<%= brand %>">
+<meta property="og:type" content="<%= isHome ? 'website' : (L.n ? 'article' : 'website') %>">
+<meta property="og:title" content="<%= titleText %>">
+<meta property="og:description" content="<%= desc %>">
+<meta property="og:url" content="<%= cur %>">
+<meta property="og:image" content="<%= img %>">
+<meta property="og:locale" content="<%= lang === 'ms' ? 'ms_MY' : 'en_GB' %>">
+<meta property="og:locale:alternate" content="<%= lang === 'ms' ? 'en_GB' : 'ms_MY' %>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<%= titleText %>">
+<meta name="twitter:description" content="<%= desc %>">
+<meta name="twitter:image" content="<%= img %>">
+<% if (org) { %><script type="application/ld+json"><%- JSON.stringify(org).replace(/</g, '\\u003c') %></script><% } %>

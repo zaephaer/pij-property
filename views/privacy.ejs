@@ -1,4 +1,4 @@
-<%- include('partials/head', {pageTitle: P.title[lang]}) %>
+<%- include('partials/head', {pageTitle: P.title[lang], pageDesc: S.desc_privacy}) %>
 <section class="page-h"><div class="wrap"><h1><%= P.title[lang] %></h1><p class="lead"><%= P.lead[lang] %></p></div></section>
 <section class="sec"><div class="wrap prose">
   <% P.sections.forEach(function(s){ %>

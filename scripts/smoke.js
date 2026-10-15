@@ -61,6 +61,34 @@ const server = app.listen(0, async () => {
     dbm.run("UPDATE settings SET value = 'aduan@example.com' WHERE key = 'whistle_email'");
     assert.ok((await (await req('/ms/kenali-kami/integriti')).text()).includes('aduan@example.com'), 'channel appears once filled');
 
+    // SEO: robots, sitemap, per-page meta, hreflang, structured data, noindex rules, compression
+    const robots = await (await req('/robots.txt')).text();
+    assert.ok(robots.includes('Disallow: /admin') && robots.includes('/sitemap.xml'), 'robots.txt');
+    const sm = await (await req('/sitemap.xml')).text();
+    assert.ok(sm.includes('<loc>' + base + '/ms</loc>') && sm.includes('/en/kenali-kami/integriti') && sm.includes('hreflang="x-default"'), 'sitemap basics');
+    assert.ok(sm.includes('/ms/projek/tpi-larkin') && !sm.includes('/admin'), 'sitemap has projects, no admin');
+    const homeHtml = await (await req('/ms')).text();
+    const meta = (h, re) => (re.exec(h) || [])[1];
+    assert.ok(/<title>PIJ Property Development \| Pemaju Hartanah Johor<\/title>/.test(homeHtml), 'home title');
+    assert.ok(meta(homeHtml, /<meta name="description" content="([^"]+)"/).length > 60, 'home description');
+    assert.ok(homeHtml.includes('property="og:image" content="' + base + '/img/og-default.jpg"'), 'og:image absolute');
+    assert.ok(homeHtml.includes('hreflang="en" href="' + base + '/en"'), 'hreflang en');
+    const ld = JSON.parse(meta(homeHtml, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/));
+    assert.ok(ld['@graph'].some((x) => x['@type'] === 'Organization' && x.alternateName.includes('PIJ Property')), 'Organization JSON-LD');
+    const projHtml = await (await req('/ms/projek/tpi-larkin')).text();
+    assert.ok(/<title>Taman Perbadanan Islam Larkin \| PIJ Property Development<\/title>/.test(projHtml), 'project title');
+    assert.ok(meta(projHtml, /<meta name="description" content="([^"]+)"/).includes('121'), 'project description from summary');
+    assert.ok(projHtml.includes('og:image" content="' + base + '/img/p/larkin.jpg"'), 'project og:image');
+    assert.ok(!/application\/ld\+json/.test(projHtml), 'no org JSON-LD on inner pages');
+    assert.ok((await (await req('/ms/projek?status=siap')).text()).includes('noindex'), 'filtered list is noindex');
+    assert.ok((await (await req('/ms/tiada')).text()).includes('noindex'), '404 is noindex');
+    assert.strictEqual((await req('/admin/login')).headers.get('x-robots-tag'), 'noindex, nofollow');
+    const gz = await fetch(base + '/ms', { headers: { 'accept-encoding': 'gzip' } });
+    assert.strictEqual(gz.headers.get('content-encoding'), 'gzip', 'gzip enabled');
+    assert.ok((await req('/favicon.ico')).status === 200 && (await req('/site.webmanifest')).status === 200, 'icons present');
+    const priv = await (await req('/en/privacy-notice')).text();
+    assert.ok(priv.includes('hreflang="ms" href="' + base + '/ms/notis-privasi"'), 'privacy hreflang uses the right slug per language');
+
     // PDPA: retention -> anonymise rows older than 12 months, keep date + project
     dbm.run("INSERT INTO enquiries (name,phone,email,project,message,created_at,consent_at) VALUES ('Lama','011','a@b.co','TPI Larkin','hi',datetime('now','-13 months'),'x')");
     const { anonymiseExpired } = require('../src/retention');

@@ -49,3 +49,14 @@ Guna **named volume** (lalai Coolify) supaya pemilikan fail betul untuk pengguna
 - **Alamat IP pelawat:** had kadar borang menggunakan `req.ip`. Jika `TRUST_PROXY` salah, semua pelawat kelihatan sebagai satu IP dan had 8 borang/15 minit terpakai kepada **semua** pelawat. Uji selepas deploy: hantar borang dari dua rangkaian berbeza.
 - **Kemas kini:** `git push` ke `main` → Coolify membina dan menggantikan kontena (data kekal pada volume).
 - **Pemulihan:** salin `data-YYYY-MM-DD.sqlite` ke `/app/data/data.sqlite` (hentikan aplikasi dahulu), dan `uploads/` ke `/app/uploads`.
+
+## 7. SEO selepas pelancaran (kerja di luar kod)
+Kod sudah menyediakan tajuk/penerangan setiap halaman, hreflang BM/BI, `sitemap.xml`, `robots.txt`, data berstruktur dan pratonton kongsi. Kedudukan di Google bergantung pada langkah di bawah, yang hanya boleh dibuat oleh pemilik laman:
+
+1. **Google Search Console**: tambah `https://pijproperty.com` dan `https://www.pijproperty.com`, sahkan pemilikan (rekod DNS di Cloudflare), kemudian hantar `https://pijproperty.com/sitemap.xml`.
+2. **Bing Webmaster Tools**: import daripada Search Console.
+3. **Google Business Profile**: daftar "PIJ Property Development" dengan alamat pejabat, telefon dan laman web yang sama seperti dalam laman.
+4. **Pautan masuk**: minta laman PIJ Holdings / Perbadanan Islam Johor memaut ke laman ini; pastikan halaman Facebook dan LinkedIn memaut balik ke laman web.
+5. **Konsisten**: nama, alamat dan telefon yang sama di laman, Facebook, LinkedIn dan Google Business Profile.
+6. **Semak selepas deploy**: `view-source` halaman utama, pastikan `og:url` dan `hreflang` bermula `https://` (jika `http://`, semak `TRUST_PROXY`).
+7. **Nota**: mencari "PIJ" sahaja sangat umum (PIJ Holdings, Perbadanan Islam Johor). Sasaran realistik ialah kedudukan pertama untuk "PIJ Property" dan "PIJ Property Development".

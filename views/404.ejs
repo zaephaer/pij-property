@@ -1,4 +1,4 @@
-<%- include('partials/head', {pageTitle: S.not_found}) %>
+<%- include('partials/head', {pageTitle: S.not_found, noindex: true}) %>
 <section class="page-h"><div class="wrap"><h1>404</h1><p class="lead"><%= S.not_found %></p>
   <p><a class="btn" href="<%= base %>"><%= S.home %></a></p></div></section>
 <%- include('partials/foot') %>
