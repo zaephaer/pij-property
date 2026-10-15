@@ -41,6 +41,14 @@ app.use(express.urlencoded({ extended: false, limit: '100kb' }));
 // but only if SESSION_SECRET is stable: a random per-boot secret invalidates every cookie.
 if (!process.env.SESSION_SECRET && process.env.NODE_ENV === 'production') console.warn('[config] SESSION_SECRET is not set: admins will be logged out on every restart');
 const secret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+// Cloudflare Tunnel -> Traefik: Traefik rewrites X-Forwarded-Proto to "http" (it only saw the tunnel's plain-HTTP hop),
+// so Express thinks the visitor is on http and refuses to set the Secure session cookie (admin login loops).
+// Cloudflare's own CF-Visitor header still carries the visitor's real scheme.
+app.use((req, res, next) => {
+  try { if (JSON.parse(req.headers['cf-visitor'] || '{}').scheme === 'https') req.headers['x-forwarded-proto'] = 'https'; } catch { /* malformed header: ignore */ }
+  next();
+});
+
 app.use(session({
   store: new (require('./session-store'))(),
   secret, resave: false, saveUninitialized: false, name: 'pij.sid',
