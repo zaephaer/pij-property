@@ -18,6 +18,8 @@ app.use(require('compression')());
 const root = path.join(__dirname, '..');
 app.set('view engine', 'ejs');
 app.set('views', path.join(root, 'views'));
+// CSS URLs carry the boot time (?v=), so every deploy busts the browser/Cloudflare cache (Cloudflare otherwise holds CSS ~4h).
+app.locals.assetV = Date.now().toString(36);
 // Hops between the visitor and this app (Cloudflare Tunnel -> Coolify/Traefik is usually 2). Wrong value => every visitor shares one IP for rate limiting.
 app.set('trust proxy', process.env.TRUST_PROXY ? Number(process.env.TRUST_PROXY) : 1);
 app.get('/healthz', (req, res) => res.type('text').send('ok'));
