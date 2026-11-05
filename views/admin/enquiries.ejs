@@ -7,8 +7,8 @@
     if (d.charAt(0) === '0') d = '60' + d.slice(1); else if (d.slice(0, 2) !== '60') d = '60' + d;
     var pontian = /pontian/i.test(x.project || '');
     var msg = 'Salam ' + x.name + ', terima kasih kerana berminat dengan ' + (x.project || 'projek kami') + '.\n\n' + (pontian
-      ? 'Maklumat ringkas:\n• Rumah teres 2 tingkat (RMMJ Jenis B), 3 bilik tidur, 2 bilik air, 850 kaki persegi\n• Harga RM100,000\n• 37 unit ditawarkan\n• Khas untuk pengundi dalam kawasan Parlimen Pontian dan Tanjung Piai (Awam Melayu sahaja)\n• Lokasi: Jalan Parit Ibrahim, Pontian, berdekatan Masjid Jamek Jalan Parit Ibrahim (https://maps.app.goo.gl/BZzvtSp7fhV4Fd1C6)\n\nSyarat utama:\n• Warganegara Malaysia, menetap 10 tahun di Johor, berusia 18 tahun ke atas\n• Berdaftar sebagai pengundi Parlimen Pontian atau Tanjung Piai\n• Pendapatan isi rumah (pemohon dan pasangan) tidak melebihi RM6,000\n• Pemohon dan pasangan tidak memiliki atau tidak pernah memiliki rumah kediaman\n\nDokumen utama: kad pengenalan, sijil kelahiran, sijil nikah/perceraian/kematian, dan pengesahan pendapatan (slip gaji 3 bulan, surat majikan, penyata KWSP; atau akuan sumpah jika bekerja sendiri/tidak bekerja).\n\nPermohonan dibuka 3 Nov hingga 3 Dis 2026 melalui: pkpj.johor.gov.my\n\n'
-      : '') + 'Jika ada soalan lanjut, boleh hubungi kami di 06-2266366.\n\nPIJ Property Development Sdn. Bhd.';
+      ? 'Maklumat ringkas:\n• Rumah teres 2 tingkat (RMMJ Jenis B), 3 bilik tidur, 2 bilik air, 850 kaki persegi\n• Harga RM100,000\n• 37 unit ditawarkan\n• Khas untuk pengundi dalam kawasan Parlimen Pontian dan Tanjung Piai (Awam Melayu sahaja)\n• Lokasi: Jalan Parit Ibrahim, Pontian, berdekatan Masjid Jamek Jalan Parit Ibrahim (https://maps.app.goo.gl/BZzvtSp7fhV4Fd1C6)\n\nSyarat dan kelayakan:\nRujuk syarat dan dokumen permohonan yang diperlukan menerusi imej berikut.\n\nPENTING!!\nPermohonan dibuka 3 Nov hingga 3 Dis 2026 melalui: pkpj.johor.gov.my\n\n'
+      : '') + 'Jika ada soalan lanjut, boleh hubungi kami di 07-2266366.\n\nPIJ Property Development Sdn. Bhd.';
     return 'https://wa.me/' + d + '?text=' + encodeURIComponent(msg);
   }
 %>
