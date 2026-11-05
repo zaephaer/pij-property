@@ -120,6 +120,8 @@ const server = app.listen(0, async () => {
     assert.ok((await (await req('/ms/berita')).text()).includes('Berita Ujian'));
     assert.ok((await (await req('/ms/tender')).text()).includes('Tutup'), 'past tender must show Tutup');
     assert.ok((await (await req('/admin/pertanyaan.csv')).text()).includes('Ali'));
+    const enqPage = await (await req('/admin/pertanyaan')).text();
+    assert.ok(enqPage.includes('https://wa.me/60123456789?text=Salam%20Ali'), 'WhatsApp link: 0123456789 -> 60123456789 with greeting');
     console.log('SMOKE OK');
   } catch (err) { console.error('SMOKE FAIL:', err.message); process.exitCode = 1; }
   server.close();
